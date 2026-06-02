@@ -14,8 +14,6 @@ module.exports = function(app) {
     // Update a Note with noteId
     app.put('/notes/:noteId', notes.update);
 
-    // Partially update a Note with noteId
-    app.patch('/notes/:noteId', notes.patch);
 
     // Delete a Note with noteId
     app.delete('/notes/:noteId', notes.delete);
