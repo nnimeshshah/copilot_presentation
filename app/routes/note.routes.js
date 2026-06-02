@@ -16,5 +16,5 @@ module.exports = function(app) {
 
 
     // Delete a Note with noteId
-    app.delete('/notes/:noteId', notes.delete);
+    // (removed) app.delete('/notes/:noteId', notes.delete);
 }
