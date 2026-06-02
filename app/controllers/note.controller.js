@@ -60,6 +60,31 @@ exports.update = function(req, res) {
     });
 };
 
+// Partially update a note (PATCH)
+exports.patch = function(req, res) {
+    // Find the note by id
+    Note.findById(req.params.noteId, function(err, note) {
+        if(err) {
+            return res.status(500).send({message: "Could not find a note with id " + req.params.noteId});
+        }
+
+        if(!note) {
+            return res.status(404).send({message: "Note not found with id " + req.params.noteId});
+        }
+
+        // Apply only provided fields (allow title and/or content)
+        if(req.body.title !== undefined) note.title = req.body.title;
+        if(req.body.content !== undefined) note.content = req.body.content;
+
+        note.save(function(err, data) {
+            if(err) {
+                return res.status(500).send({message: "Could not update note with id " + req.params.noteId});
+            }
+            res.send(data);
+        });
+    });
+};
+
 exports.delete = function(req, res) {
     // Delete a note with the specified noteId in the request
     Note.remove({_id: req.params.noteId}, function(err, data) {
